@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Sigges to do list</h1>
+</div>
+<br>
+<br>
+<br>
+<div class="forms">
+    <form method="post" asp-page-handler="Add">
+        <div class="form-group">
+            <label for="newNote">Ny anteckning</label>
+            <input type="text" class="form-control" id="newNote" name="newNote" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Lägg till</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<ul>
+    @foreach (var Note in to_do_razor_v22.Pages.IndexModel.NotesList)@*  behöver gå hela vägen via namespace för att hitta *@
+    {
+        <li>
+            <p>@Note.NoteText  </p>     @* Här skriver jag ut propen med string todo *@
+            @if (Note.IsDone)
+            {
+                <span class="text-success ms-2">&#10003;</span> @* Grön bock *@
+            }
+            <div>
+                @if (!Note.IsDone)
+                {
+                    <form method="post" asp-page-handler="ToggleIsDone" class="d-inline">
+                        <input type="hidden" name="noteText" value="@Note.NoteText" />
+                        <button type="submit" class="btn btn-success btn-sm">Klar</button>
+                    </form>
+                }
+
+                <form method="post" asp-page-handler="Delete" class="d-inline">
+                    <input type="hidden" name="noteText" value="@Note.NoteText" />
+                    <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
+                </form>
+            </div>
+        </li>
+    }
+</ul>
+
