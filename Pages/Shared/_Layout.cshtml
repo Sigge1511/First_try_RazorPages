@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - to_do_razor_v22</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+    @{    var theme = Context.Request.Cookies["theme"] ?? "light"; // Default to light theme if cookie is not set
+        if (theme == "dark")
+        {
+            <link rel="stylesheet" href="~/css/darksite.css" asp-append-version="true" />
+        }
+        else
+        {
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        }
+    }
+}
+
+
+
+
     <link rel="stylesheet" href="~/to_do_razor_v22.styles.css" asp-append-version="true" />
+
+
+
+
+
 </head>
 <body>
     <header>

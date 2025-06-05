@@ -1,0 +1,73 @@
+﻿@page
+@model to_do_razor_v22.Pages.AddStudentModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    <h3>Add a Student</h3>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="studentform">
+        <form method="post" asp-page-handler="Create">
+            <validation-summary asp-validation-summary="All" class="text-danger"></validation-summary>
+
+            <div class="form-group">
+                <label asp-for="Student.FirstName"></label>
+                <input asp-for="Student.FirstName" class="form-control" />
+                <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Student.LastName"></label>
+                <input asp-for="Student.LastName" class="form-control" />
+                <span asp-validation-for="Student.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Student.Email"></label>
+                <input asp-for="Student.Email" class="form-control" />
+                <span asp-validation-for="Student.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Student.Age"></label>
+                <input asp-for="Student.Age" type="number" class="form-control" />
+                <span asp-validation-for="Student.Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Student.Course"></label>
+                <select asp-for="Student.Course" asp-items="Model.CourseOptions" class="form-control">
+                    <option value="">-- Välj kurs --</option>
+                </select>
+                <span asp-validation-for="Student.Course" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+    </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            alert('@TempData["SuccessMessage"]');
+        </script>
+    }
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>List of students:</h3>
+
+    @foreach (var student in Model.CurrentStudents)
+    {
+        <div class="student">
+            <p><strong>@student.FirstName @student.LastName</strong></p>
+            <p>Email: @student.Email</p>
+            <p>Age: @student.Age</p>
+            <p>Course: @student.Course</p>
+        </div>
+    }
+
+
+}
