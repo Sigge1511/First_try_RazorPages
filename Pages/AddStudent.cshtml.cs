@@ -13,20 +13,18 @@ namespace to_do_razor_v22.Pages
         public List<SelectListItem> CourseOptions { get; set; }
 
         public static List<Data.Student> StudentsList = new List<Data.Student>();
-        public List<Data.Student> CurrentStudents => StudentsList;
+        public List<Data.Student> CurrentStudents => StudentsList;           /*denna behövdes för att razorhtml inte gillar static-listor*/
 
 
 
         public void OnGet()
         {
-            CourseOptions = CourseList();
-            Console.WriteLine("Courses in OnGet: " + CourseOptions.Count);
+            CourseOptions = CourseList();            
         }
 
         public IActionResult OnPostCreate()
         {
             CourseOptions = CourseList();
-            Console.WriteLine("Courses in OnGet: " + CourseOptions.Count);
 
             if (!ModelState.IsValid)
             {

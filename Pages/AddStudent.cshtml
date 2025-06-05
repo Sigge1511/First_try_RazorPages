@@ -1,6 +1,11 @@
 ﻿@page
 @model to_do_razor_v22.Pages.AddStudentModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Add a new student";
+}
+
 @{
     <h3>Add a Student</h3>
     <br>
@@ -8,18 +13,18 @@
     <br>
     <br>
     <div class="studentform">
-        <form method="post" asp-page-handler="Create">
+        <form method="post" asp-page-handler="Create">                                      /* skickar till rätt metod eftersom jag döpt till OnPostCreate */
             <validation-summary asp-validation-summary="All" class="text-danger"></validation-summary>
 
             <div class="form-group">
                 <label asp-for="Student.FirstName"></label>
-                <input asp-for="Student.FirstName" class="form-control" />
-                <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+                <input asp-for="Student.FirstName" class="form-control" />                  /* asp-for för att binda till modellen */
+                <span asp-validation-for="Student.FirstName" class="text-danger"></span>    /* kollar efter fel */
             </div>
 
             <div class="form-group">
                 <label asp-for="Student.LastName"></label>
-                <input asp-for="Student.LastName" class="form-control" />
+                <input asp-for="Student.LastName" class="form-control" />                   /* skippa tex id och name osv för då hittar inte razor rätt */
                 <span asp-validation-for="Student.LastName" class="text-danger"></span>
             </div>
 
@@ -46,7 +51,7 @@
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
     </div>
-    @if (TempData["SuccessMessage"] != null)
+    @if (TempData["SuccessMessage"] != null)                   /*  här används både lite c# och javascript för att visa alerten */
     {
         <script>
             alert('@TempData["SuccessMessage"]');
@@ -59,7 +64,7 @@
     <br>
     <h3>List of students:</h3>
 
-    @foreach (var student in Model.CurrentStudents)
+    @foreach (var student in Model.CurrentStudents)           /*  anropar på den ickestatiska listan CurrentStudents som finns i modellen */
     {
         <div class="student">
             <p><strong>@student.FirstName @student.LastName</strong></p>
